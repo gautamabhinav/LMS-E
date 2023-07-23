@@ -297,7 +297,7 @@ const updateUser = async(req, res, next) => {
 
     await user.save();
 
-    req.status(200).json({
+    res.status(200).json({
         success: true,
         message: 'User details updated successfully'
     });

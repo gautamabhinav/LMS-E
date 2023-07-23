@@ -61,25 +61,6 @@ userSchema.pre('save', async function(next) {
     this.password = await bcrypt.hash(this.password, 10);
 });
 
-userSchema.methods = {
-    generateJWTToken: async function() {
-      return await jwt.sign(
-        {
-          id: this._id,
-          email: this.email,
-          subscription: this.subscription,
-          role: this.role,
-        },
-        process.env.SECRET,
-        {
-          expiresIn: process.env.JWT_EXPIRY,
-        }
-      );
-    },
-    comparePassword: async function(plainTextPassword) {
-      return await bcrypt.compare(plainTextPassword, this.password);
-    },
-  };
 
 userSchema.methods = {
     generateJWTToken: async function() {
