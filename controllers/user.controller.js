@@ -3,6 +3,7 @@ import AppError from "../utils/error.util.js";
 import cloudinary from 'cloudinary';
 import fs from 'fs/promises';
 import crypto from 'crypto';
+import sendEmail from "../utils/sendEmail.js";
 
 const cookieOptions = {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
@@ -71,7 +72,7 @@ const register = async(req, res, next) => {
 
     const token = await user.generateJWTToken();
 
-    res.cookie('token', token, cookieOption)
+    res.cookie('token', token, cookieOptions)
 
     res.status(201).json({
         success: true,
@@ -177,7 +178,7 @@ const forgotPassword = async(req, res, next) => {
         user.forgotPasswordToken = undefined;
 
         await user.save();
-        return next(new AppError(e.message, 500));
+        return next(new AppError(error.message, 500));
     }
 }
 
