@@ -44,7 +44,7 @@ const getLecturesByCourseId = async function(req, res, next) {
             new AppError(error.message,500)
         )
     }
-}
+}  
 
 const createCourse = async(req, res, next ) => {
     const { title, description, category, createdBy } = req.body;

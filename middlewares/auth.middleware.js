@@ -3,7 +3,7 @@ import  jwt  from 'jsonwebtoken';
 
 const isLoggedIn = async (req, res, next) => {
     
-    const { token } = req.cookies;
+    const token = req.cookies.token || req.headers.Cookie;
 
     // const { token } = req.cookies['token'];
 
