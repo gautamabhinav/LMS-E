@@ -11,7 +11,7 @@ const courseSchema = new Schema({
     description: {
         type: String,
         required: [true, 'description is required'],
-        minLength: [8, 'description must be atleast 5 character'],
+        minLength: [8, 'description must be atleast 8 character'],
         maxLength: [200, 'description should be less than 50 characters'],
     },
     category: {
@@ -29,29 +29,22 @@ const courseSchema = new Schema({
         }
     },
 
-    // lectures: [{
-    //     title: String,
-    //     description: String,
-    //     lecture: {
-    //         public_id: String,
-    //         secure_url: String,
-    //     }
-    // }],
-
-    lectures: [{
-        title: String,
-        description: String,
-        lecture: {
-            public_id: {
-                type: String,
-                // required: true
-            },
-            secure_url: {
-                type: String,
-                // required: true
+    lectures: [
+        {
+            title: String,
+            description: String,
+            lecture: {
+                public_id: {
+                    type: String,
+                    // required: true
+                },
+                secure_url: {
+                    type: String,
+                    // required: true
+                }
             }
         }
-    }],
+    ],
     numberOfLectures: {
         type: Number,
         default: 0,
