@@ -256,7 +256,8 @@ const changePassword = async(req, res, next) => {
 
 const updateUser = async(req, res, next) => {
     const { fullname } = req.body;
-    const { id } = req.user.id;
+    // const  id  = req.user.id;              //see the syntax, if user has id then we can destructure it directly using const {id} = req.user; it is equivalent to const id = req.user.id;
+    const {id} = req.user;                     // req.user has id property, so instead of saving the value of req.user.id in id variable, we are destructuring the id from req.user and saving it in id variable using {id}
 
     const user = await User.findById(id);
 

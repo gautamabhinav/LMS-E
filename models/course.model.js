@@ -28,7 +28,17 @@ const courseSchema = new Schema({
             required: true
         }
     },
-    lectures: {
+
+    // lectures: [{
+    //     title: String,
+    //     description: String,
+    //     lecture: {
+    //         public_id: String,
+    //         secure_url: String,
+    //     }
+    // }],
+
+    lectures: [{
         title: String,
         description: String,
         lecture: {
@@ -41,7 +51,7 @@ const courseSchema = new Schema({
                 // required: true
             }
         }
-    },
+    }],
     numberOfLectures: {
         type: Number,
         default: 0,

@@ -166,7 +166,7 @@ const addLectureToCourseById = async( req, res, next ) => {
             )
         }
 
-        const course = await Course.findBtId(id);
+        const course = await Course.findById(id);
 
         if(!course) {
             return next(
