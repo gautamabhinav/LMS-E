@@ -54,45 +54,88 @@ const userSchema = new Schema({
     timestamps: true
 });
 
+// userSchema.pre('save', async function(next) {
+//     if(!this.isModified('password')) {
+//         return next();
+//     }
+//     this.password = await bcrypt.hash(this.password, 10);
+// });
+
+
+// userSchema.methods = {
+//     generateJWTToken: async function() {
+//         return await jwt.sign(
+//           {
+//             id: this._id,
+//             email: this.email,
+//             subscription: this.subscription,
+//             role: this.role,
+//           },
+//           process.env.JWT_SECRET,
+//           {
+//             expiresIn: process.env.JWT_EXPIRY,
+//           }
+//         );
+//       },
+//     comparePassword: async function(plainTextPassword) {
+//         return await bcrypt.compare(plainTextPassword, this.password)
+//     },
+//     generatePasswordResetToken: async function() {
+//         const resetToken = crypto.randomBytes(20).toString('hex');
+
+//         this.forgotPasswordToken = crypto
+//             .createHash('sha256')
+//             .update(resetToken)
+//             .digest('hex')
+//         ;
+//         this.forgotPasswordExpiry = Date.now() + 15 * 60 * 1000;  // 15 min from now
+
+//         return resetToken;
+//     }
+// }
+
+
+
+// Assuming you have defined 'userSchema' using a library like Mongoose
 userSchema.pre('save', async function(next) {
-    if(!this.isModified('password')) {
-        return next();
-    }
-    this.password = await bcrypt.hash(this.password, 10);
+  if (!this.isModified('password')) {
+    return next();
+  }
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
 
 userSchema.methods = {
-    generateJWTToken: async function() {
-        return await jwt.sign(
-          {
-            id: this._id,
-            email: this.email,
-            subscription: this.subscription,
-            role: this.role,
-          },
-          process.env.JWT_SECRET,
-          {
-            expiresIn: process.env.JWT_EXPIRY,
-          }
-        );
+  generateJWTToken: async function() {
+    return await jwt.sign(
+      {
+        id: this._id,
+        email: this.email,
+        subscription: this.subscription,
+        role: this.role,
       },
-    comparePassword: async function(plainTextPassword) {
-        return await bcrypt.compare(plainTextPassword, this.password)
-    },
-    generatePasswordResetToken: async function() {
-        const resetToken = crypto.randomBytes(20).toString('hex');
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.JWT_EXPIRY,
+      }
+    );
+  },
+  comparePassword: async function(plainTextPassword) {
+    return await bcrypt.compare(plainTextPassword, this.password);
+  },
+  generatePasswordResetToken: async function() {
+    const resetToken = crypto.randomBytes(20).toString('hex');
 
-        this.forgotPasswordToken = crypto
-            .createHash('sha256')
-            .update(resetToken)
-            .digest('hex')
-        ;
-        this.forgotPasswordExpiry = Date.now() + 15 * 60 * 1000;  // 15 min from now
+    this.forgotPasswordToken = crypto
+      .createHash('sha256')
+      .update(resetToken)
+      .digest('hex');
+    this.forgotPasswordExpiry = Date.now() + 15 * 60 * 1000; // 15 minutes from now
 
-        return resetToken;
-    }
-}
+    return resetToken;
+  },
+};
+
 
 const User = model('User', userSchema);
 

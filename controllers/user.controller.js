@@ -57,7 +57,7 @@ const register = async(req, res, next) => {
                 user.avatar.secure_url = result.secure_url;
 
                 // Remove file from server
-                fs.rm(`uploads/${req.file.filename}`)
+                fs.rm(`uploads/${req.file.filename}`);
             }
         } catch (e) {
             return next(
@@ -85,7 +85,7 @@ const login = async(req, res, next) => {
     try {
         const { email, password } = req.body;
 
-        if(!email || !password ) {
+        if( !email || !password ) {
             return next(new AppError('All fields are required', 400));
         }
 
@@ -127,8 +127,8 @@ const logout = (req, res, next) => {
 };
 
 const getProfile = async(req, res, next) => {
+    const userId = req.user.id;
     try {
-        const userId = req.user.id;
         const user = await User.findById(userId);
 
         res.status(200).json({

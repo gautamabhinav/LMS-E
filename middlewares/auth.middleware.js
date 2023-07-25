@@ -2,17 +2,21 @@ import AppError from "../utils/error.util.js";
 import  jwt  from 'jsonwebtoken';
 
 const isLoggedIn = async (req, res, next) => {
-    const {token} = req.cookies;
+    
+    const { token } = req.cookies;
+
+    // const { token } = req.cookies['token'];
 
     if(!token) {
-        return next(new AppError('Unauthenticated, please login again',401));
+        return next(new AppError('Unauthenticated, please login again',404));
     }
 
-    const userDetails = await jwt.verify(process.env.JWT_SECRET);
+    const userDetails = await jwt.verify( token, process.env.JWT_SECRET);
 
     req.user = userDetails;
 
     next();
+
 }
 
 const authorizedRoles = (...roles) => async (req,res, next) => {
@@ -24,6 +28,8 @@ const authorizedRoles = (...roles) => async (req,res, next) => {
     }
     next();
 }
+
+ 
 
 export {
     isLoggedIn,

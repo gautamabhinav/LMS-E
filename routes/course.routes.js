@@ -15,7 +15,10 @@ router.route('/')
     );
 
 router.route('/:id')
-    .get(isLoggedIn ,getLecturesByCourseId)
+    .get(
+        isLoggedIn,
+        getLecturesByCourseId
+    )
     .put(
         isLoggedIn,
         authorizedRoles('ADMIN'),
