@@ -42,7 +42,7 @@ export const buySubcription = async(req, res, next) => {
         const subscription =  razorpay.subscriptions.create({
             plain_id: process.env.RAZORPAY_PLAIN_ID,
             customer_notify: 1,
-            plan_id: 'plan_id'
+            plan_id: 'plan_MIgtUmziTy6C3Q'
         });
 
         user.subscription.id = subscription.id;
