@@ -18,6 +18,8 @@ export const getRazorpayApiKey = async(req, res, next) => {
    
 }
 
+
+
 export const buySubcription = async(req, res, next) => {
     try {
         const { id } = req.user;
@@ -39,7 +41,8 @@ export const buySubcription = async(req, res, next) => {
 
         const subscription =  razorpay.subscriptions.create({
             plain_id: process.env.RAZORPAY_PLAIN_ID,
-            customer_notify: 1
+            customer_notify: 1,
+            plan_id: 'plan_id'
         });
 
         user.subscription.id = subscription.id;
